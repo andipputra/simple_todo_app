@@ -25,7 +25,7 @@ class TodoController extends GetxController {
     getAllTodo();
   }
 
-  Future<void> removeTodoAt(String id) async {
+  Future<void> removeTodo(String id) async {
     await todoRepository.removeTodo(id);
     getAllTodo();
   }

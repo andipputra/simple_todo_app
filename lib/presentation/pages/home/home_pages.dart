@@ -18,7 +18,13 @@ class HomePage extends GetView<TodoController> {
             final todo = controller.todos[index];
             return ListTile(
               title: Text(todo.title),
-              trailing: Checkbox(
+              trailing: IconButton(
+                onPressed: () {
+                  controller.removeTodo(todo.id);
+                },
+                icon: Icon(Icons.delete),
+              ),
+              leading: Checkbox(
                 value: todo.worked,
                 onChanged: (value) {
                   if (value != null) {

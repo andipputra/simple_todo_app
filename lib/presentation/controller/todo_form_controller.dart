@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:simple_todo_app/data/model/todo.dart';
 import 'package:simple_todo_app/presentation/controller/todo_controller.dart';
 import 'package:uuid/uuid.dart';
@@ -32,7 +33,9 @@ class TodoFormController extends GetxController {
     description = TextEditingController(text: initialTodo?.description);
 
     selectedDate.value = initialTodo?.todoDate ?? DateTime.now();
-    date = TextEditingController(text: selectedDate.value.toString());
+    date = TextEditingController(
+      text: DateFormat('dd MMMM yyyy').format(selectedDate.value),
+    );
 
     isFormLoading.value = false;
   }
@@ -47,7 +50,7 @@ class TodoFormController extends GetxController {
 
   selecDate(DateTime selectedDateTime) async {
     selectedDate.value = selectedDateTime;
-    date.text = selectedDate.value.toString();
+    date.text = DateFormat('dd MMMM yyyy').format(selectedDate.value);
   }
 
   Future<void> saveTodo() async {

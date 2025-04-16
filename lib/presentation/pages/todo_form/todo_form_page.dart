@@ -7,13 +7,16 @@ class TodoFormPage extends GetView<TodoFormController> {
 
   @override
   Widget build(BuildContext context) {
+    final isUpdate = Get.arguments != null;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Todo')),
+      appBar: AppBar(title:  Text( '${isUpdate ? "Update": "Add"} Todo')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: controller.formKey,
           child: Column(
+            spacing: 8,
             children: [
               TextField(
                 controller: controller.title,
@@ -26,6 +29,18 @@ class TodoFormPage extends GetView<TodoFormController> {
               TextField(
                 controller: controller.date,
                 decoration: const InputDecoration(labelText: 'Date'),
+                readOnly: true,
+                onTap: () async {
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: 365)),
+                  );
+                  if (selectedDate != null) {
+                    controller.selecDate(selectedDate);
+                  }
+                },
               ),
             ],
           ),
